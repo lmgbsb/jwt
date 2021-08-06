@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jwt.dto.UsuarioDTO;
-import jwt.service.AutenticacaoService;
+import jwt.service.AuthenticationService;
 
 @RestController
 @RequestMapping("/api/autenticacao")
 public class AutenticacaoController {
 
 	
-	private final AutenticacaoService autencicacaoService;
+	private final AuthenticationService autencicacaoService;
 	
 	
-	public AutenticacaoController(AutenticacaoService autencicacaoService) {
+	public AutenticacaoController(AuthenticationService autencicacaoService) {
 		this.autencicacaoService = autencicacaoService;
 	}
 	@PostMapping("/cadastrarUsuario")
