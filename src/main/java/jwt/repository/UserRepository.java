@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import jwt.model.Usuario;
+import jwt.model.User;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 	
-	Optional<Usuario> findByNome(String nome);
+	Optional<User> findByNome(String nome);
 }

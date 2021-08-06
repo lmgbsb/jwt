@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Comentario {
+public class Comment {
 
 	
 	@Id
@@ -27,5 +27,5 @@ public class Comentario {
     private Post post;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private Usuario usuario;
+    private User usuario;
 }

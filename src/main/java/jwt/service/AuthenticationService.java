@@ -5,26 +5,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jwt.dto.UsuarioDTO;
-import jwt.mapper.UsuarioMapper;
-import jwt.model.Usuario;
-import jwt.repository.UsuarioRepository;
+import jwt.mapper.UserMapper;
+import jwt.model.User;
+import jwt.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
-@Slf4j
-public class AutenticacaoService {
+public class AuthenticationService {
 	
 	
-	private final UsuarioRepository usuarioRepository;
+	private final UserRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UsuarioMapper mapper = UsuarioMapper.INSTANCE;
+    private final UserMapper mapper = UserMapper.INSTANCE;
     
     
     @Transactional
 	public Long cadastrarUsuario(UsuarioDTO usuarioDTO) {
-		Usuario usuario = mapper.toModel(usuarioDTO);
+		User usuario = mapper.toModel(usuarioDTO);
 		usuario.setSenha(encodePassword(usuarioDTO.getSenha()));
 		return (usuarioRepository.save(usuario)).getUserId();
 	}
