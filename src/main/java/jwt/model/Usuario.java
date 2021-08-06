@@ -1,7 +1,5 @@
 package jwt.model;
 
-import java.time.Instant;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +25,4 @@ public class Usuario {
 	@Email
     @NotEmpty(message = "Email deve ser informado")
     private String email;
-    private Instant dataCriacao;
-    private boolean verificado;
 }

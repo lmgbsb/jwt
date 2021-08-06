@@ -1,7 +1,5 @@
 package jwt.service;
 
-import java.time.Instant;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +23,10 @@ public class AutenticacaoService {
     
     
     @Transactional
-	public void cadastrarUsuario(UsuarioDTO usuarioDTO) {
+	public Long cadastrarUsuario(UsuarioDTO usuarioDTO) {
 		Usuario usuario = mapper.toModel(usuarioDTO);
 		usuario.setSenha(encodePassword(usuarioDTO.getSenha()));
-		usuario.setDataCriacao(Instant.now());
-		usuario.setVerificado(false);
-		usuarioRepository.save(usuario);
+		return (usuarioRepository.save(usuario)).getUserId();
 	}
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);

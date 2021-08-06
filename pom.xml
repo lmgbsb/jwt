@@ -103,6 +103,12 @@
 	        <artifactId>mapstruct</artifactId>
 	        <version>${org.mapstruct.version}</version>
 	    </dependency>
+	    <!-- thymeleaf para enviar o email de ativação de conta -->
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
