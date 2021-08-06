@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.lang.Nullable;
 
+import jwt.security.User;
 import lombok.Data;
 
 @Entity

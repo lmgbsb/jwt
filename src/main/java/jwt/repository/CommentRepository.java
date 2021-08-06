@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import jwt.model.Comment;
 import jwt.model.Post;
-import jwt.model.User;
+import jwt.security.User;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{

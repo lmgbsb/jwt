@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
+import jwt.security.User;
 import lombok.Data;
 
 

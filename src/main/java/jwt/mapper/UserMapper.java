@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import jwt.dto.UserDTO;
-import jwt.model.User;
+import jwt.security.User;
 
 @Mapper
 public interface UserMapper {

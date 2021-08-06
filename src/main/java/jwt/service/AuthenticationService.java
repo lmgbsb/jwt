@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jwt.dto.UserDTO;
 import jwt.mapper.UserMapper;
-import jwt.model.User;
 import jwt.repository.UserRepository;
+import jwt.security.User;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -24,7 +24,7 @@ public class AuthenticationService {
 	public Long cadastrarUsuario(UserDTO usuarioDTO) {
 		User usuario = mapper.toModel(usuarioDTO);
 		usuario.setPassword(encodePassword(usuarioDTO.getPassword()));
-		return (usuarioRepository.save(usuario)).getUserId();
+		return (usuarioRepository.save(usuario)).getId();
 	}
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);

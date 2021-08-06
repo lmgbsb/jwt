@@ -15,15 +15,15 @@ import jwt.service.AuthenticationService;
 public class AuthController {
 
 	
-	private final AuthenticationService autencicacaoService;
+	private final AuthenticationService authenticationService;
 	
 	
-	public AuthController(AuthenticationService autencicacaoService) {
-		this.autencicacaoService = autencicacaoService;
+	public AuthController(AuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
 	}
 	@PostMapping("/signup")
 	public ResponseEntity cadastrarUsuario(@RequestBody UserDTO userDTO) {		
-		autencicacaoService.cadastrarUsuario(userDTO);
+		authenticationService.cadastrarUsuario(userDTO);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }
