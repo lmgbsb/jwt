@@ -19,9 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 	@NotBlank(message = "Nome do usuário deve ser informado")
-	private String nome;
+	private String name;
 	@NotBlank(message = "Senha deve ser informada")
-	private String senha;
+	private String password;
 	@Email
     @NotEmpty(message = "Email deve ser informado")
     private String email;

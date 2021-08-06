@@ -18,7 +18,7 @@ Serão disponibilizados endpoints para
 1. Clone o repositório
 2. Execute o comando: ./mvnw spring-boot:run
 3. O microsserviço de cadastro de usuário estará acessível em 
-http://localhost:8080/api/autenticacao/cadastrarUsuario
+http://localhost:8080/api/auth/signup
 
 
 **Este rojeto ainda está em desenvolvimento**

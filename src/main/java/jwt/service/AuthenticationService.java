@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jwt.dto.UsuarioDTO;
+import jwt.dto.UserDTO;
 import jwt.mapper.UserMapper;
 import jwt.model.User;
 import jwt.repository.UserRepository;
@@ -21,9 +21,9 @@ public class AuthenticationService {
     
     
     @Transactional
-	public Long cadastrarUsuario(UsuarioDTO usuarioDTO) {
+	public Long cadastrarUsuario(UserDTO usuarioDTO) {
 		User usuario = mapper.toModel(usuarioDTO);
-		usuario.setSenha(encodePassword(usuarioDTO.getSenha()));
+		usuario.setPassword(encodePassword(usuarioDTO.getPassword()));
 		return (usuarioRepository.save(usuario)).getUserId();
 	}
     private String encodePassword(String password) {
