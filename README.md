@@ -8,13 +8,13 @@ Serão disponibilizados endpoints para
 - Incluir, excluir alterar e detalhar posts
 - Incluir, excluir alterar comentários nos posts
 
-###Tecnologias
+#### Tecnologias
 - Spring Boot
 - Spring Security
 - Spring Data
 - Spring REST
 
-###Passos necessários para execução da aplicação:
+#### Passos necessários para execução da aplicação:
 1. Clone o repositório
 2. Execute o comando: ./mvnw spring-boot:run
 3. O microsserviço de cadastro de usuário estará acessível em 
