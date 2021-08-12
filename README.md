@@ -40,17 +40,15 @@ http://localhost:8080/api/auth/signup
 
 1. Extrair o usuário e a senha que foram fornecidos para autenticação
 2. Criar um [token](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html) de autenticação usando  _**UsernamePasswordAuthenticationToken**_, que é uma implementação da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html)
-3. Delegar a autenticação à interface _**AuthenticationManager**_, reponsável por analisar o token
-de autenticação e decidir se é uma credencial válida.<br/>
+3. Delegar a continuação do processo de autenticação à interface _**AuthenticationManager**_, reponsável por analisar o token de autenticação e decidir se é uma credencial válida.<br/>
 
 ![](./src/main/resources/static/img/spring_security_authentication_filter.png)
 
+<br/>A [principal interface](https://spring.io/guides/topicals/spring-security-architecture) da estratégia de autenticação do Spring Security é [AuthenticationManager](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/authentication/AuthenticationManager.html), cujo único método (authenticate()) por fazer uma das seguintes coisas:
 
-<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
-
-- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos
-- **credentials**, gerelmente uma senha
-- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
+1. Retornar uma [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) se puder ser verificado que as credenciais apresentadas são válidas.
+2. Jogar uma exceção **AuthenticationException** se as credenciais apresentadas não forem válidas.
+3. Retornar null, se ela não conseguir decidir.
 
 
 <br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder<br/>
@@ -74,6 +72,13 @@ de autenticação e decidir se é uma credencial válida.<br/>
 
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
+
+
+<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
+
+- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos
+- **credentials**, gerelmente uma senha
+- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
