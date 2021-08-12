@@ -28,14 +28,7 @@ http://localhost:8080/api/auth/signup
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
 
-<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:
-
-
-![](./src/main/resources/static/img/securitycontextholder.png)
-
-
-<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas
-ao UserDetailsService e PasswordEncoder
+<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder
 
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)
@@ -48,12 +41,30 @@ ao UserDetailsService e PasswordEncoder
 
 
 <br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
-que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.
+ que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.<br/>
 
-As relações entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são as seguintes:
+
+
+<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:
+
+
+![](./src/main/resources/static/img/securitycontextholder.png)
+
+Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
 
+<br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois ojetivos no Spring Security:
+
+- Prover ao AuthenticationManager as credenciais fornecidas pelo usuário para se autenticar
+- Representar o usuário autenticado por meio da interface Authentication, que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()
+
+
+<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
+
+- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos
+- **credentials**, gerelmente uma senha
+- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
 
 <br/><br/><br/>
