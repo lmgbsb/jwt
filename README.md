@@ -25,6 +25,9 @@ O esquema geral de [autenticação](https://livebook.manning.com/book/spring-sec
 
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
+É no SecurityContextHolder que o Spring guarda os detalhes de quem está autenticado:
+
+![](./src/main/resources/static/img/securitycontextholder.png)
 
 **Este projeto ainda está em desenvolvimento**
 

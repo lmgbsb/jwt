@@ -25,15 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().authenticated();
 	}	
 	@Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(11);
-	}
-	@Bean
 	public UserDetailsService userDetailsService(UserRepository userRepo) {
 		return username -> {
 			User user = userRepo.findByUsername(username);
 			if (user != null) return user;
 			throw new UsernameNotFoundException("User '" + username + "' not found");
 		};
+	}
+	@Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(11);
 	}
 }
