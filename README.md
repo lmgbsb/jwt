@@ -23,11 +23,22 @@ http://localhost:8080/api/auth/signup
 
 O esquema geral de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:
 
+
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
-É no SecurityContextHolder que o Spring guarda os detalhes de quem está autenticado:
+
+É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:\
+
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
+
+
+O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas
+ao UserDetailsService e PasswordEncoder\
+
+
+![](./src/main/resources/static/img/daoauthenticationprovider.png)
+
 
 **Este projeto ainda está em desenvolvimento**
 
