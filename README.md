@@ -17,28 +17,37 @@ http://localhost:8080/api/auth/signup
 
 #### Tecnologias
 - Spring Boot
-- Spring Security
 - Spring Data
 - Spring REST
+- Spring Security
 
 
-O esquema geral de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:
+<br/>O esquema geral de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:
 
 
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
 
-É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:
+<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:
 
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
 
 
-O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas
+<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas
 ao UserDetailsService e PasswordEncoder
 
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)
+
+
+<br/>É a interface UserDetaill que provê ao sistema as informações básicas sobre os usuários. Implementações dessa  
+interface guardam informações que serão posteriormente encapsuladas em objeto do tipo Authentication
+
+
+![](./src/main/resources/static/img/CH03_F02_Spilca.png)
+
+
 
 
 **Este projeto ainda está em desenvolvimento**
