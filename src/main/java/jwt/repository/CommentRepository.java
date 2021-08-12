@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import jwt.model.Comment;
 import jwt.model.Post;
-import jwt.security.User;
+import jwt.security.SecurityUser;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
 	
 	List<Comment> findByPost(Post post);
-	List<Comment> findByUsuario(User usuario);
+	List<Comment> findByUsuario(SecurityUser usuario);
 }

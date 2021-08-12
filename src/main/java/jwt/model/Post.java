@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.lang.Nullable;
 
-import jwt.security.User;
+import jwt.security.SecurityUser;
 import lombok.Data;
 
 @Entity
@@ -28,5 +28,5 @@ public class Post {
     private String descricao;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private User usuario;
+    private SecurityUser usuario;
 }

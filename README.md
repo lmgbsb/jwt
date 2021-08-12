@@ -22,11 +22,20 @@ http://localhost:8080/api/auth/signup
 - Spring Security
 
 
-<br/>O esquema geral de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:
+<br/>O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:
 
 
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
+
+<br/>A [primeira etapa](https://2darray.com/featured/spring-security-architecture-authentication/) deste processo ocorre no **Spring Security Authentication Filter**, que tem três responsabilidades:
+
+1. Extrair o usuário e a senha que foram fornecidos para autenticação
+2. Criar um [token](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html) de autenticação usando  _**UsernamePasswordAuthenticationToken**_, que é uma implementação da interface [Authentication](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/core/Authentication.html)
+3. Delegar a autenticação à interface _**AuthenticationManager_**, reponsável por analisar o token
+de autenticação e decidir se é uma credencial válida.
+
+![](./src/main/resources/static/img/spring_security_authentication_filter.png)
 
 <br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder
 
@@ -54,7 +63,7 @@ Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spr
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
 
-<br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois ojetivos no Spring Security:
+<br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois objetivos no Spring Security:
 
 - Prover ao AuthenticationManager as credenciais fornecidas pelo usuário para se autenticar
 - Representar o usuário autenticado por meio da interface Authentication, que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()

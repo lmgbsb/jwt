@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
-import jwt.security.User;
+import jwt.security.SecurityUser;
 import lombok.Data;
 
 
@@ -28,5 +28,5 @@ public class Comment {
     private Post post;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private User usuario;
+    private SecurityUser usuario;
 }
