@@ -34,13 +34,8 @@ public class User implements UserDetails{
     private String email;
 	
 	
-	@Override
+	@Override	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getUsername() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -63,6 +58,5 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	
+	}	
 }

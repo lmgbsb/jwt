@@ -41,15 +41,22 @@ ao UserDetailsService e PasswordEncoder
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)
 
 
-<br/>É a interface UserDetaill que provê ao sistema as informações básicas sobre os usuários. Implementações dessa  
-interface guardam informações que serão posteriormente encapsuladas em objeto do tipo Authentication
+<br/>É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto do tipo Authentication
 
 
 ![](./src/main/resources/static/img/CH03_F02_Spilca.png)
 
 
+<br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
+que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.
+
+As relações entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são as seguintes:
+
+![](./src/main/resources/static/img/spring_security_architecture.png)
 
 
+
+<br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
 
 ![](https://media.giphy.com/media/EIiJp9cQ3GeEU/giphy.gif)
