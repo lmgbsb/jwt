@@ -32,7 +32,7 @@ http://localhost:8080/api/auth/signup
 <br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois objetivos no Spring Security:
 
 - Prover ao AuthenticationManager as credenciais fornecidas pelo usuário para se autenticar
-- Representar o usuário autenticado por meio da interface Authentication, que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()
+- Representar o usuário autenticado por meio da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html), que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()
 
 
 
@@ -41,7 +41,7 @@ http://localhost:8080/api/auth/signup
 1. Extrair o usuário e a senha que foram fornecidos para autenticação
 2. Criar um [token](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html) de autenticação usando  _**UsernamePasswordAuthenticationToken**_, que é uma implementação da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html)
 3. Delegar a autenticação à interface _**AuthenticationManager**_, reponsável por analisar o token
-de autenticação e decidir se é uma credencial válida.
+de autenticação e decidir se é uma credencial válida.<br/>
 
 ![](./src/main/resources/static/img/spring_security_authentication_filter.png)
 
@@ -53,13 +53,13 @@ de autenticação e decidir se é uma credencial válida.
 - **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
 
-<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder
+<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder<br/>
 
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)
 
 
-<br/>É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto do tipo Authentication
+<br/>É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
 
 ![](./src/main/resources/static/img/CH03_F02_Spilca.png)
@@ -70,12 +70,12 @@ de autenticação e decidir se é uma credencial válida.
 
 
 
-<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:
+<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
 
-Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:
+<br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
 
