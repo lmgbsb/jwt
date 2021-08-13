@@ -34,6 +34,8 @@ http://localhost:8080/api/auth/signup
 - Prover ao AuthenticationManager as credenciais fornecidas pelo usuário para se autenticar
 - Representar o usuário autenticado por meio da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html), que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()<br/>
 
+![](./src/main/resources/static/img/securitycontextholder.png)
+
 #### Authentication Filter
 A [primeira etapa](https://2darray.com/featured/spring-security-architecture-authentication/) deste processo ocorre no **Spring Security Authentication Filter**, que tem três responsabilidades:
 
@@ -72,8 +74,15 @@ O AuthenticationProvider implementa a lógica de autenticação e delega o geren
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
 
+#### UserDetailService
+A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
+
+
+![](./src/main/resources/static/img/spring-security-architecture.png)
+
+
 #### UserDetail
-É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
+É a interface [UserDetails](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
 
 ![](./src/main/resources/static/img/CH03_F02_Spilca.png)
@@ -91,7 +100,7 @@ O AuthenticationProvider implementa a lógica de autenticação e delega o geren
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
 
-![](./src/main/resources/static/img/securitycontextholder.png)
+
 
 
 
