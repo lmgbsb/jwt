@@ -87,6 +87,7 @@ http://localhost:8080/api/auth/signup
 
 
 
+<br/>A codificação observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**

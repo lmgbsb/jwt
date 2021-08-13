@@ -2,7 +2,6 @@ package jwt.dto;
 
 import lombok.Data;
 
-
 @Data
 public class UserDTO {
 

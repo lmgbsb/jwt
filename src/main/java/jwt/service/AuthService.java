@@ -8,7 +8,6 @@ import jwt.mapper.UserMapper;
 import jwt.model.User;
 import jwt.repository.UserRepository;
 
-
 @Service
 public class AuthService {
 	

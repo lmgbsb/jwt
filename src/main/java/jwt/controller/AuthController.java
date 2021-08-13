@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import jwt.dto.UserDTO;
 import jwt.service.AuthService;
 
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

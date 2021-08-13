@@ -14,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
-
 @Entity
 @Table
 @Data
@@ -37,5 +36,5 @@ public class Post {
     private Instant updatedOn;
     @Column
     @NotBlank
-    private String username;
+    private String userName;
 }
