@@ -36,6 +36,14 @@ http://localhost:8080/api/auth/signup
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
 
+
+<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
+
+- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
+- **credentials**, geralmente uma senha, mas também pode ser um token.
+- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
+
+
 #### Authentication Filter
 A [primeira etapa](https://2darray.com/featured/spring-security-architecture-authentication/) deste processo ocorre no **Spring Security Authentication Filter**, que tem três responsabilidades:
 
@@ -46,12 +54,6 @@ A [primeira etapa](https://2darray.com/featured/spring-security-architecture-aut
 
 ![](./src/main/resources/static/img/spring_security_authentication_filter.png)<br/>
 
-
-<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
-
-- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
-- **credentials**, geralmente uma senha, mas também pode ser um token.
-- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
 #### AuthenticationManager
 A [principal interface](https://spring.io/guides/topicals/spring-security-architecture) da estratégia de autenticação do Spring Security é [AuthenticationManager](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/authentication/AuthenticationManager.html), cujo único método (authenticate( )) pode fazer uma das seguintes coisas:
@@ -92,9 +94,9 @@ A interface [UserDetailsService](https://docs.spring.io/spring-security/site/doc
  que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.<br/>
 
 #### Password Encoder
+A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5.0.0.M5/api/org/springframework/security/crypto/password/PasswordEncoder.html) possui dois métdodos abstratos, _**encode**_ e _**matches**_, que são autoexplicativos:
 
-
-
+![](./src/main/resources/static/img/PasswordEncoder_class.png)
 
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
