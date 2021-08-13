@@ -1,36 +1,28 @@
 package jwt.model;
 
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 
-@Data
 @Entity
-@RequiredArgsConstructor
+@Table
+@Data
 public class User {
-
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	@NotBlank(message = "Nome do usuário deve ser informado")
-	private String username;
-	@NotBlank(message = "Senha deve ser informada")
-	private String password;
-	@Email
-    @NotEmpty(message = "Email deve ser informado")
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String userName;
+    @Column
+    private String password;
+    @Column
     private String email;
-	private List getAuthority() {
-		return null;
-	}
 }

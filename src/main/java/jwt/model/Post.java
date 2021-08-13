@@ -1,32 +1,42 @@
 package jwt.model;
 
+import java.time.Instant;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
-import org.springframework.lang.Nullable;
-
-import jwt.security.SecurityUser;
 import lombok.Data;
 
+
 @Entity
+@Table
 @Data
 public class Post {
-
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long postId;
-	private String titulo;
-	@Nullable
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
+    @Column
+    private String title;
     @Lob
-    private String descricao;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private SecurityUser usuario;
+    @Column
+    @NotEmpty
+    private String content;
+    @Column
+    private Instant createdOn;
+    @Column
+    private Instant updatedOn;
+    @Column
+    @NotBlank
+    private String username;
+
 }

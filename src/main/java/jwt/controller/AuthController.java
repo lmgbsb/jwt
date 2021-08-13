@@ -8,22 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jwt.dto.UserDTO;
-import jwt.service.AuthenticationService;
+import jwt.service.AuthService;
+
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+	
 
+	private final AuthService authService;
 	
-	private final AuthenticationService authenticationService;
 	
-	
-	public AuthController(AuthenticationService authenticationService) {
-		this.authenticationService = authenticationService;
+	public AuthController(AuthService authService) {
+		this.authService=authService;
 	}
 	@PostMapping("/signup")
-	public ResponseEntity cadastrarUsuario(@RequestBody UserDTO userDTO) {		
-		authenticationService.cadastrarUsuario(userDTO);
+	public ResponseEntity signup(@RequestBody UserDTO userDTO) {
+		authService.signup(userDTO);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }
