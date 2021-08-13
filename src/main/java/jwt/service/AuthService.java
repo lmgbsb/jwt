@@ -8,6 +8,7 @@ import jwt.mapper.UserMapper;
 import jwt.model.User;
 import jwt.repository.UserRepository;
 
+
 @Service
 public class AuthService {
 	
@@ -26,5 +27,4 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
-
 }

@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import jwt.dto.UserDTO;
 import jwt.model.User;
 
+
 @Mapper
 public interface UserMapper {
 	

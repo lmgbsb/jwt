@@ -38,5 +38,4 @@ public class Post {
     @Column
     @NotBlank
     private String username;
-
 }
