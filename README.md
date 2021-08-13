@@ -50,8 +50,16 @@ http://localhost:8080/api/auth/signup
 2. Jogar uma exceção **AuthenticationException** se as credenciais apresentadas não forem válidas.
 3. Retornar null, se ela não conseguir decidir.
 
+<br/>A implementação mais comum do AuthenticationManager é o [ProviderManager](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-providermanager), que possui uma lista de AuthenticationProviders aos quais é dada a oportunidade de indicar se a autenticação deveria ter sucesso, falhar ou indicar que não consegue decidir e deixar essa tarefa para o próximo AuthenticationProvider da lista.</br>
 
-<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder, ambos definidos na classe de configuração do projeto.<br/>
+
+![](./src/main/resources/static/img/providermanager.png)
+
+<br/>Também é possível [obter rapidamente](https://spring.io/guides/topicals/spring-security-architecture) o AuthenticationManager padrão por meio do [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.2.3.RELEASE/apidocs/index.html?org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html)<br/>
+
+![](./src/main/resources/static/img/AuthenticationManager.png)
+
+<br/>O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder, ambos definidos na classe de configuração do projeto.<br/><br/>
 
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)
@@ -76,7 +84,7 @@ http://localhost:8080/api/auth/signup
 
 <br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
 
-- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos
+- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
 - **credentials**, geralmente uma senha
 - **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
@@ -87,7 +95,7 @@ http://localhost:8080/api/auth/signup
 
 
 
-<br/>A codificação observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).
+<br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
