@@ -34,18 +34,24 @@ http://localhost:8080/api/auth/signup
 - Prover ao AuthenticationManager as credenciais fornecidas pelo usuário para se autenticar
 - Representar o usuário autenticado por meio da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html), que pode ser obtida a partir do  SecurityContext: SecurityContextHolder.getContext().getAuthentication()<br/>
 
-##### Authentication Filter
-
+#### Authentication Filter
 A [primeira etapa](https://2darray.com/featured/spring-security-architecture-authentication/) deste processo ocorre no **Spring Security Authentication Filter**, que tem três responsabilidades:
 
 1. Extrair o usuário e a senha que foram fornecidos para autenticação
 2. Criar um [token](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html) de autenticação usando  _**UsernamePasswordAuthenticationToken**_, que é uma implementação da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html)
 3. Delegar a continuação do processo de autenticação à interface _**AuthenticationManager**_, reponsável por analisar o token de autenticação e decidir se é uma credencial válida.<br/>
 
+
 ![](./src/main/resources/static/img/spring_security_authentication_filter.png)<br/>
 
-##### AuthenticationManager
 
+<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
+
+- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
+- **credentials**, geralmente uma senha, mas também pode ser um token.
+- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
+
+#### AuthenticationManager
 A [principal interface](https://spring.io/guides/topicals/spring-security-architecture) da estratégia de autenticação do Spring Security é [AuthenticationManager](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/authentication/AuthenticationManager.html), cujo único método (authenticate( )) pode fazer uma das seguintes coisas:
 
 1. Retornar uma [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) se puder ser verificado que as credenciais apresentadas são válidas.
@@ -61,15 +67,13 @@ A [principal interface](https://spring.io/guides/topicals/spring-security-archit
 
 ![](./src/main/resources/static/img/AuthenticationManager.png)<br/>
 
-##### AuthenticationProvider
-
+#### AuthenticationProvider
 O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder, ambos definidos na classe de configuração do projeto.<br/><br/>
 
+![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
 
-![](./src/main/resources/static/img/daoauthenticationprovider.png)
-
-
-<br/>É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
+#### UserDetail
+É a interface [UserDetail](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
 
 ![](./src/main/resources/static/img/CH03_F02_Spilca.png)
@@ -78,26 +82,22 @@ O AuthenticationProvider implementa a lógica de autenticação e delega o geren
 <br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
  que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.<br/>
 
+#### Password Encoder
 
 
-<br/>É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
+
+
+#### SecurityContext
+É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
 
 ![](./src/main/resources/static/img/securitycontextholder.png)
 
 
-<br/>A interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) dispõe de métodos para obter:
-
-- **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
-- **credentials**, geralmente uma senha
-- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
 
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
-
-
-
 
 <br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).
 
