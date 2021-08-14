@@ -41,7 +41,7 @@ http://localhost:8080/api/auth/signup
 
 - **authorities**, que são permissões em alto nível atribuídas ao usuário, como papéis ou escopos. Permissões são definidas por Strings e, por padrão, prefixadas com 'ROLE_'
 - **credentials**, geralmente uma senha, mas também pode ser um token.
-- **principal**, que identifica o usuário. É geralmente uma instância de UserDetails quando se autentica com usuário e senha
+- **principal**, que identifica o usuário. É geralmente uma implementação da interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html) quando se autentica com usuário e senha
 
 
 #### Authentication Filter
@@ -72,7 +72,7 @@ A [principal interface](https://spring.io/guides/topicals/spring-security-archit
 ![](./src/main/resources/static/img/AuthenticationManager.png)<br/>
 
 #### AuthenticationProvider
-O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas ao UserDetailsService e PasswordEncoder, ambos definidos na classe de configuração do projeto.<br/><br/>
+O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas às interfaces UserDetailsService e PasswordEncoder, ambas definidas na classe de configuração do projeto.<br/><br/>
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
 
@@ -83,7 +83,7 @@ A interface [UserDetailsService](https://docs.spring.io/spring-security/site/doc
 ![](./src/main/resources/static/img/spring-security-architecture.png)
 
 
-#### UserDetail
+#### UserDetails
 É a interface [UserDetails](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
 
