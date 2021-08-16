@@ -62,6 +62,8 @@ A [principal interface](https://spring.io/guides/topicals/spring-security-archit
 2. Jogar uma exceção **AuthenticationException** se as credenciais apresentadas não forem válidas.
 3. Retornar null, se ela não conseguir decidir.
 
+![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
+
 <br/>A implementação mais comum do AuthenticationManager é o [ProviderManager](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-providermanager), que possui uma lista de AuthenticationProviders aos quais é dada a oportunidade de indicar se a autenticação deveria ter sucesso, falhar ou indicar que não consegue decidir e deixar essa tarefa para o próximo AuthenticationProvider da lista.</br>
 
 
@@ -72,15 +74,15 @@ A [principal interface](https://spring.io/guides/topicals/spring-security-archit
 ![](./src/main/resources/static/img/AuthenticationManager.png)<br/>
 
 #### AuthenticationProvider
-O AuthenticationProvider implementa a lógica de autenticação e delega o gerenciamento de usuários e senhas às interfaces UserDetailsService e PasswordEncoder, ambas definidas na classe de configuração do projeto.<br/><br/>
+O AuthenticationProvider [implementa a lógica de autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-5/59) e delega o gerenciamento de usuários e senhas às interfaces UserDetailsService e PasswordEncoder, ambas definidas na classe de configuração do projeto.<br/><br/>
 
-![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
+![](./src/main/resources/static/img/CH05_F05_Spilca.png)
 
 #### UserDetailService
-A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
+A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://www.javadevjournal.com/spring-security/spring-security-authentication/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
 
 
-![](./src/main/resources/static/img/spring-security-architecture.png)
+![](./src/main/resources/static/img/Spring-Security-Architecture--1024x607.png.webp)
 
 
 #### UserDetails
