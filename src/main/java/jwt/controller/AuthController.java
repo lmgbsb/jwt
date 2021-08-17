@@ -21,6 +21,7 @@ public class AuthController {
 	public AuthController(AuthService authService) {
 		this.authService=authService;
 	}
+	//create a new user in database
 	@PostMapping("/signup")
 	public ResponseEntity signup(@RequestBody UserDTO userDTO) {
 		authService.signup(userDTO);

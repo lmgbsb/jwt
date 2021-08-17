@@ -9,7 +9,7 @@ import jwt.model.User;
 import jwt.repository.UserRepository;
 
 @Service
-public class AuthService {
+public class AuthService{
 	
 	
 	private final UserMapper userMapper = UserMapper.INSTANCE;
@@ -17,11 +17,12 @@ public class AuthService {
 	private final PasswordEncoder passwordEncoder;
 
 	
-	public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder){
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
-	public User signup(UserDTO userDTO) {
+	//create a new user in database
+	public User signup(UserDTO userDTO){
 		User user = userMapper.toModel(userDTO);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
