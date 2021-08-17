@@ -94,11 +94,15 @@ A interface [UserDetailsService](https://docs.spring.io/spring-security/site/doc
 
 <br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
  que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.<br/>
+ 
+ <br/>Neste projeto, o _design pattern_ [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern) será utilizado na implementação da interface UserDetails
 
 #### Password Encoder
 A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5.0.0.M5/api/org/springframework/security/crypto/password/PasswordEncoder.html) possui dois métdodos abstratos, _**encode**_ e _**matches**_, que são autoexplicativos:
 
 ![](./src/main/resources/static/img/PasswordEncoder_class.png)
+
+
 
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
