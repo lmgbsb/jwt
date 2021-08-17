@@ -21,8 +21,8 @@ http://localhost:8080/api/auth/signup
 - Spring REST
 - Spring Security
 
-
-<br/>O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:<br/>
+#### Autenticação
+O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:<br/>
 
 
 ![](./src/main/resources/static/img/spring_security_authentication_process.png)
@@ -82,7 +82,7 @@ O AuthenticationProvider [implementa a lógica de autenticação](https://livebo
 A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://www.javadevjournal.com/spring-security/spring-security-authentication/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
 
 
-![](./src/main/resources/static/img/Spring-Security-Architecture--1024x607.png.webp)
+![](./src/main/resources/static/img/spring-security-basic-authentication.png)
 
 
 #### UserDetails
@@ -93,9 +93,9 @@ A interface [UserDetailsService](https://docs.spring.io/spring-security/site/doc
 
 
 <br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
- que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.<br/>
+ que outras informações não relacionadas à segurança (telefone, email, etc.) sejam concentradas no mesmo lugar.
  
- <br/>Neste projeto, o _design pattern_ [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern) será utilizado na implementação da interface UserDetails
+ <br/>Neste projeto, o _design pattern_ [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern) será utilizado na implementação da interface UserDetails<br/>
 
 #### Password Encoder
 A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5.0.0.M5/api/org/springframework/security/crypto/password/PasswordEncoder.html) possui dois métdodos abstratos, _**encode**_ e _**matches**_, que são autoexplicativos:
@@ -107,16 +107,14 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
-
-
-
-
-
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
 
-<br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).
+<br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).<br>
+
+#### Autorização
+
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
