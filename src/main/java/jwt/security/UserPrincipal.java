@@ -1,8 +1,11 @@
 package jwt.security;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jwt.model.User;
@@ -20,7 +23,12 @@ public class UserPrincipal implements UserDetails {
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		if(null == user.getAuthorities()) {
+			return Collections.emptySet();
+		}
+		return user.getAuthorities().stream()
+				.map(a -> new SimpleGrantedAuthority(a.getName()))
+				.collect(Collectors.toList());		
 	}
 	@Override
 	public String getPassword() {
