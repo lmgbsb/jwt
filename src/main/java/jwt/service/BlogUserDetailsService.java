@@ -25,6 +25,7 @@ public class BlogUserDetailsService implements UserDetailsService {
 		if(user == null) {
 			throw new UsernameNotFoundException("Cannot find username: " + username);
 		}
+		//Decorator design pattern
 		return new UserPrincipal(user);
 	}
 }
