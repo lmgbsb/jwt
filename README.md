@@ -25,8 +25,16 @@ http://localhost:8080/api/auth/signup
 O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in-action/chapter-2/section-2-2?origin=product-toc) por meio do Spring Security é o seguinte:<br/>
 
 
-![](./src/main/resources/static/img/spring_security_authentication_process.png)
+![](./src/main/resources/static/img/spring-security-basic-authentication.png)
 
+
+</br>Tendo em vista essa cadeia de dependências, a cofiguração do processo de autenticação por meio do Spring Security deverá obedecer a seguinte sequência:
+
+1. Definir uma classe que implemente a interface UserDetails
+2. Definir uma classe que implemente a interface UserDetailsService
+3. Definir a lógica de criptografia de senha ou utilizar uma implementação da interface PasswordEncoder fornecida pelo Spring Security
+4. Definir a lógica de autenticação a ser implementada ou utilizar uma implementação da interface AuthenticationProvider disponibilizada pelo Spring Security
+5. Implementar a interface AuthenticationManager ou utilizar uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
 
 
 <br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois objetivos no Spring Security:
@@ -82,7 +90,7 @@ O AuthenticationProvider [implementa a lógica de autenticação](https://livebo
 A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://www.javadevjournal.com/spring-security/spring-security-authentication/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
 
 
-![](./src/main/resources/static/img/spring-security-basic-authentication.png)
+
 
 
 #### UserDetails
@@ -114,7 +122,10 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 <br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).<br>
 
 #### Autorização
+O framework SpringSecurity provê suporte aos seguintes tipos de autorização
 
+- Web request
+- 
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
