@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jwt.security.Authority;
 import lombok.Data;
 
@@ -25,6 +27,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String userName;
+    @JsonIgnore
     private String password;
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)

@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jwt.model.User;
 import lombok.Data;
 
@@ -31,6 +33,7 @@ public class UserPrincipal implements UserDetails {
 				.collect(Collectors.toList());		
 	}
 	@Override
+	@JsonIgnore
 	public String getPassword() {
 		return this.user.getPassword();
 	}
