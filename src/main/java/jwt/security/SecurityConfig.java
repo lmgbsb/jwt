@@ -42,8 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder(11);
 	}
-	//converte as Authorities carregadas do banco de dados naquelas que serão
-	//usadas pelo objeto Authentication, prefixando-as com "ROLE_"
 	@Bean
     public GrantedAuthoritiesMapper authoritiesMapper(){
         SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();

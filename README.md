@@ -36,6 +36,9 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 4. Definir a lógica de autenticação a ser implementada ou utilizar uma implementação da interface AuthenticationProvider disponibilizada pelo Spring Security
 5. Implementar a interface AuthenticationManager ou utilizar uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
 
+Após a configuração do Spring Security, é possível adicionar o AuthenticationManager como um bean ao contexto da aplicação por meio do método [authenticationManagerBean()](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#authenticationManagerBean--) da classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html)
+
+![](./src/main/resources/static/img/WebSecurityConfigurerAdapter.png)
 
 <br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois objetivos no Spring Security:
 
@@ -97,7 +100,7 @@ A interface [UserDetailsService](https://docs.spring.io/spring-security/site/doc
 É a interface [UserDetails](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
 
-![](./src/main/resources/static/img/CH03_F02_Spilca.png)
+![](./src/main/resources/static/img/user_details.png)
 
 
 <br/>Essas implementações **não são usadas diretamente pelo Spring para fins de segurança**, o que permite
@@ -125,7 +128,30 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 O framework SpringSecurity provê suporte aos seguintes tipos de autorização
 
 - Web request
-- 
+
+
+#### Filtros
+O Spring Securit é baseado em [filtros](https://spring.io/guides/topicals/spring-security-architecture). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
+
+![](./src/main/resources/static/img/security-filters.png)
+
+Note que o Spring Security é ele mesmo um filtro que delega o processamento das requisições aos seus filtros internos.
+
+#### OAuth 2
+
+
+#### JSON Web Tokens
+RESTful API's são, por definição, stateless, ou seja, não guardam o estado entre uma requisição e outra.
+
+Para superar o problema de ter que enviar o usuário e senha a cada requisição, a aplicaçao pode retornar ao usuário
+uma string criptografada, um token, após a autenticação, que [será adicionado ao cabeçalho HTTP nas requisições
+subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security-and-java)
+
+![](./src/main/resources/static/img/fluxo_json.webp).
+
+
+
+Um token JWT tem 3 partes, Header, Payload e Signature
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
