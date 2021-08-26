@@ -131,11 +131,13 @@ O framework SpringSecurity provê suporte aos seguintes tipos de autorização
 
 
 #### Filtros
-O Spring Securit é baseado em [filtros](https://spring.io/guides/topicals/spring-security-architecture). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
+O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
+
+![](./src/main/resources/static/img/spring_security_filter_chain.png)
+
+Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/topicals/spring-security-architecture) que delega o processamento das requisições aos seus filtros internos.
 
 ![](./src/main/resources/static/img/security-filters.png)
-
-Note que o Spring Security é ele mesmo um filtro que delega o processamento das requisições aos seus filtros internos.
 
 #### OAuth 2
 
@@ -149,9 +151,25 @@ subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security
 
 ![](./src/main/resources/static/img/fluxo_json.webp).
 
+O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
 
+Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar uma série de claims, acompanhados de uma assinatura para verificar a sua autenticidade
 
-Um token JWT tem 3 partes, Header, Payload e Signature
+Um token JWT tem [3 partes](https://livebook.manning.com/book/spring-security-in-action/chapter-11/77), Header, Payload e Signature, separadas por um ponto.
+
+O **Header** armazena informações referentes ao Token.
+
+O **Payload** (ou Body) é um objeto JSON com as Claims (informações) da entidade tratada, normalmente informações utilizadas para autenticação. Como o JWT utiliza o formato JSON, [cada _claim_ é uma chave do objeto JSON](https://github.com/jwtk/jjwt#overview).
+
+Essas claims podem ser de [2 tipos](https://auth0.com/docs/tokens/json-web-tokens/json-web-token-claims):
+
+1. Reserved claims: atributos não obrigatórios (mas recomendados) que são usados na validação do token pelos protocolos de segurança das APIs.
+2. Custom claims: atributos que usamos em nossas aplicações. Normalmente armazenamos as informações do usuário autenticado na aplicação.
+
+A assinatura (**Signature**) é a concatenação dos hashes gerados a partir do Header e Payload usando base64UrlEncode, com uma chave secreta ou certificado RSA, o que garante que o token não foi modificado.
+
+![](./src/main/resources/static/img/CH11_F08_Spilca.png)
+
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
