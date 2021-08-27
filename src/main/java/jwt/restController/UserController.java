@@ -15,7 +15,7 @@ import jwt.security.UserPrincipal;
 import jwt.service.UserService;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/public")
 public class UserController {
 	
 

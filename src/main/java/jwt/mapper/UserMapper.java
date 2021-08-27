@@ -1,6 +1,7 @@
 package jwt.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import jwt.dto.UserDTO;
@@ -14,4 +15,6 @@ public interface UserMapper {
 	
 	
 	User toModel(UserDTO dto);
+	@Mapping(source = "user.userId", target = "id")
+	UserDTO toDto(User user);
 }

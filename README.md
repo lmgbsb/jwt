@@ -158,7 +158,7 @@ A assinatura (**Signature**) é a concatenação dos hashes gerados a partir do 
 
 ![](./src/main/resources/static/img/CH11_F08_Spilca.png)
 
-Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica todas as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
+Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica **todas** as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
 
 #### Filtros
 O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
