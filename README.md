@@ -13,7 +13,7 @@ Serão disponibilizados endpoints para
 1. Clone o repositório
 2. Execute o comando: ./mvnw spring-boot:run
 3. O microsserviço de cadastro de usuário estará acessível em 
-http://localhost:8080/api/auth/signup
+http://localhost:8080/api/public/signup
 
 #### Tecnologias
 - Spring Boot
@@ -130,18 +130,6 @@ O framework SpringSecurity provê suporte aos seguintes tipos de autorização
 - Web request
 
 
-#### Filtros
-O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
-
-![](./src/main/resources/static/img/spring_security_filter_chain.png)
-
-Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/topicals/spring-security-architecture) que delega o processamento das requisições aos seus filtros internos.
-
-![](./src/main/resources/static/img/security-filters.png)
-
-#### OAuth 2
-
-
 #### JSON Web Tokens
 RESTful API's são, por definição, stateless, ou seja, não guardam o estado entre uma requisição e outra.
 
@@ -157,7 +145,7 @@ Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar uma 
 
 Um token JWT tem [3 partes](https://livebook.manning.com/book/spring-security-in-action/chapter-11/77), Header, Payload e Signature, separadas por um ponto.
 
-O **Header** armazena informações referentes ao Token.
+O **Header** armazena informações referentes ao Token. Por convenção, o token JWT é enviado no header **Authorization** utilizando o [esquema Bearer](https://swagger.io/docs/specification/authentication/bearer-authentication/)
 
 O **Payload** (ou Body) é um objeto JSON com as Claims (informações) da entidade tratada, normalmente informações utilizadas para autenticação. Como o JWT utiliza o formato JSON, [cada _claim_ é uma chave do objeto JSON](https://github.com/jwtk/jjwt#overview).
 
@@ -170,6 +158,18 @@ A assinatura (**Signature**) é a concatenação dos hashes gerados a partir do 
 
 ![](./src/main/resources/static/img/CH11_F08_Spilca.png)
 
+Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica todas as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
+
+#### Filtros
+O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
+
+![](./src/main/resources/static/img/spring_security_filter_chain.png)
+
+Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/topicals/spring-security-architecture) que delega o processamento das requisições aos seus filtros internos.
+
+![](./src/main/resources/static/img/security-filters.png)
+
+#### OAuth 2
 
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
