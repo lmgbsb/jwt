@@ -54,7 +54,6 @@ Após a configuração do Spring Security, é possível adicionar o Authenticati
 - **credentials**, geralmente uma senha, mas também pode ser um token.
 - **principal**, que identifica o usuário. É geralmente uma implementação da interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html) quando se autentica com usuário e senha
 
-
 #### Authentication Filter
 A [primeira etapa](https://2darray.com/featured/spring-security-architecture-authentication/) deste processo ocorre no **Spring Security Authentication Filter**, que tem três responsabilidades:
 
@@ -93,9 +92,6 @@ O AuthenticationProvider [implementa a lógica de autenticação](https://livebo
 A interface [UserDetailsService](https://docs.spring.io/spring-security/site/docs/3.2.x/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) possui um único método que deve ser implementado conforme a lógica do sistema e [retornar](https://www.javadevjournal.com/spring-security/spring-security-authentication/) um objeto que implementa a interface [UserDetails](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html)<br/>
 
 
-
-
-
 #### UserDetails
 É a interface [UserDetails](https://livebook.manning.com/concept/spring/userdetails-contract) que provê ao sistema as informações básicas sobre os usuários. Implementações dessa interface guardam informações que serão posteriormente encapsuladas em objeto que implementa a interface Authentication.<br/>
 
@@ -113,22 +109,12 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 
 ![](./src/main/resources/static/img/PasswordEncoder_class.png)
 
-
-
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
 ![](./src/main/resources/static/img/spring_security_architecture.png)
-
-<br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).<br>
-
-#### Autorização
-O framework SpringSecurity provê suporte aos seguintes tipos de autorização
-
-- Web request
-
 
 #### JSON Web Tokens
 RESTful API's são, por definição, stateless, ou seja, não guardam o estado entre uma requisição e outra.
@@ -139,13 +125,19 @@ subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security
 
 ![](./src/main/resources/static/img/fluxo_json.webp).
 
-O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
+Por convenção, o token JWT é enviado no header **Authorization** do cabeçalho HTTP.
+
+![](./src/main/resources/static/img/token_jwt_cabecalho_http.png)
 
 Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar uma série de claims, acompanhados de uma assinatura para verificar a sua autenticidade
 
+![](./src/main/resources/static/img/jwt_decoded.png)
+
+O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
+
 Um token JWT tem [3 partes](https://livebook.manning.com/book/spring-security-in-action/chapter-11/77), Header, Payload e Signature, separadas por um ponto.
 
-O **Header** armazena informações referentes ao Token. Por convenção, o token JWT é enviado no header **Authorization** utilizando o [esquema Bearer](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+O **Header** armazena informações referentes ao Token. 
 
 O **Payload** (ou Body) é um objeto JSON com as Claims (informações) da entidade tratada, normalmente informações utilizadas para autenticação. Como o JWT utiliza o formato JSON, [cada _claim_ é uma chave do objeto JSON](https://github.com/jwtk/jjwt#overview).
 
@@ -171,7 +163,22 @@ Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/top
 
 #### OAuth 2
 
+
+#### Autorização
+O framework SpringSecurity provê suporte aos seguintes tipos de autorização
+
+- Web request
+
+
+
+
+
+<br/><br/>A codificação deste projeto observará os padrões de código fonte do [Spring Framework Code Style Guide](https://github.com/spring-projects/spring-framework/wiki/Code-Style).<br>
+
+
 <br/><br/><br/>
 **Este projeto ainda está em desenvolvimento**
+
+
 
 ![](https://media.giphy.com/media/EIiJp9cQ3GeEU/giphy.gif)
