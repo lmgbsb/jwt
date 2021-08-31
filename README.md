@@ -119,6 +119,8 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 #### JSON Web Tokens
 RESTful API's são, por definição, stateless, ou seja, não guardam o estado entre uma requisição e outra.
 
+![](./src/main/resources/static/img/evolution_software_architectures.jpg)
+
 Para superar o problema de ter que enviar o usuário e senha a cada requisição, a aplicaçao pode retornar ao usuário
 uma string criptografada, um token, após a autenticação, que [será adicionado ao cabeçalho HTTP nas requisições
 subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security-and-java)
@@ -129,7 +131,7 @@ Por convenção, o token JWT é enviado no header **Authorization** do cabeçalh
 
 ![](./src/main/resources/static/img/token_jwt_cabecalho_http.png)
 
-Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar uma série de claims, acompanhados de uma assinatura para verificar a sua autenticidade
+Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar informações relacionadas à identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
 ![](./src/main/resources/static/img/jwt_decoded.png)
 
