@@ -131,7 +131,7 @@ Por convenção, o token JWT é enviado no header **Authorization** do cabeçalh
 
 ![](./src/main/resources/static/img/token_jwt_cabecalho_http.png)
 
-Um JSON Web Token (JWT) nada mais é do que uma forma compacta de reprentar informações relacionadas à identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
+Um JSON Web Token (JWT) nada mais é do que uma forma compacta de representar informações relacionadas a identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
 ![](./src/main/resources/static/img/jwt_decoded.png)
 
@@ -148,7 +148,7 @@ Essas claims podem ser de [2 tipos](https://auth0.com/docs/tokens/json-web-token
 1. Reserved claims: atributos não obrigatórios (mas recomendados) que são usados na validação do token pelos protocolos de segurança das APIs.
 2. Custom claims: atributos que usamos em nossas aplicações. Normalmente armazenamos as informações do usuário autenticado na aplicação.
 
-A assinatura (**Signature**) é a concatenação dos hashes gerados a partir do Header e Payload usando base64UrlEncode, com uma chave secreta ou certificado RSA, o que garante que o token não foi modificado.
+A [assinatura](https://livebook.manning.com/book/spring-security-in-action/chapter-15/v-5/17) (**Signature**) é a concatenação dos hashes gerados a partir do Header e Payload usando base64UrlEncode, com uma chave secreta ou certificado RSA, o que garante que o token não foi modificado.
 
 ![](./src/main/resources/static/img/CH11_F08_Spilca.png)
 
