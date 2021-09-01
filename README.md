@@ -133,6 +133,8 @@ Por convenção, o token JWT é enviado no header **Authorization** do cabeçalh
 
 Um JSON Web Token (JWT) nada mais é do que uma forma compacta de representar informações relacionadas a identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
+Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica **todas** as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
+
 ![](./src/main/resources/static/img/jwt_decoded.png)
 
 O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
@@ -145,14 +147,24 @@ O **Payload** (ou Body) é um objeto JSON com as Claims (informações) da entid
 
 Essas claims podem ser de [2 tipos](https://auth0.com/docs/tokens/json-web-tokens/json-web-token-claims):
 
-1. Reserved claims: atributos não obrigatórios (mas recomendados) que são usados na validação do token pelos protocolos de segurança das APIs.
-2. Custom claims: atributos que usamos em nossas aplicações. Normalmente armazenamos as informações do usuário autenticado na aplicação.
+1. Registered claims: atributos não obrigatórios (mas recomendados) que são usados na validação do token pelos protocolos de segurança das APIs.
+    - Subject claim (**sub** key): um valor único que representa o conteúdo do JWT
+    - Issuer claim (**iss** key): identifica quem emitiu o token
+    - Issued At claim (**iat** key): quando o token foi emitido
+    - Expiration Time claim (**exp** key): identifica a data de expiração do token<br/>
+    
+2. Public claims: atributos definidor pelo emissor do token.
+3. Private claims: atributos personalizados
 
 A [assinatura](https://livebook.manning.com/book/spring-security-in-action/chapter-15/v-5/17) (**Signature**) é a concatenação dos hashes gerados a partir do Header e Payload usando base64UrlEncode, com uma chave secreta ou certificado RSA, o que garante que o token não foi modificado.
 
 ![](./src/main/resources/static/img/CH11_F08_Spilca.png)
 
-Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica **todas** as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
+
+
+#### JJWT
+
+Uma biblioteca muito utilizada para a geração do token JWT é a [JJWT](https://github.com/jwtk/jjwt)
 
 #### Filtros
 O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
