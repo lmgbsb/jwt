@@ -57,7 +57,7 @@ public class UC {
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, 
-                    		jwtTokenUtil.createToken(userPrincipal.getUsername(), 
+                    		jwtTokenUtil.createToken(userPrincipal.getUser(), 
                     				userPrincipal.getAuthorities()))
                     .body(userMapper.toDto(userPrincipal.getUser()));
         } catch (BadCredentialsException ex) {
