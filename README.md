@@ -119,6 +119,8 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 #### JSON Web Tokens
 RESTful API's são, por definição, stateless, ou seja, não guardam o estado entre uma requisição e outra.
 
+Na arquitetura de microserviços, a autenticação se difere das implementações da arquitetura monolito na medida em que o servidor REST autentica **todas** as requisições por meio dos dados disponíveis na requisição. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
+
 ![](./src/main/resources/static/img/evolution_software_architectures.jpg)
 
 Para superar o problema de ter que enviar o usuário e senha a cada requisição, a aplicaçao pode retornar ao usuário
@@ -129,23 +131,21 @@ subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security
 
 Por convenção, o token JWT é enviado no header **Authorization** do cabeçalho HTTP.
 
-![](./src/main/resources/static/img/token_jwt_cabecalho_http.png)
+![](./src/main/resources/static/img/token_jwt_cabecalho_http_2.png)
 
 Um JSON Web Token (JWT) nada mais é do que uma forma compacta de representar informações relacionadas a identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
-Na arquitetura REST, a autenticação de difere das implementações da arquitetura monolito na medida em que o servidor REST autentica **todas** as requisições por meio dos dados disponíveis na requisição, ou seja, no token JWT. Se a autenticação falhar, o servidor devolve um HTTP code 401 (Unauthorized), mas se a autenticação for bem sucedida, o servidor continua com a execução da requisição e retorna um HTTP code 200 (OK).
-
-![](./src/main/resources/static/img/jwt_decoded.png)
+![](./src/main/resources/static/img/jwt_decoded_2.png)
 
 O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
 
 Um token JWT tem [3 partes](https://livebook.manning.com/book/spring-security-in-action/chapter-11/77), Header, Payload e Signature, separadas por um ponto.
 
-O **Header** armazena informações referentes ao Token. 
+O **Header** armazena metadados referentes ao Token. 
 
-O **Payload** (ou Body) é um objeto JSON com as Claims (informações) da entidade tratada, normalmente informações utilizadas para autenticação. Como o JWT utiliza o formato JSON, [cada _claim_ é uma chave do objeto JSON](https://github.com/jwtk/jjwt#overview).
+O **Payload** (ou Body) é um objeto JSON com as _Claims_ (informações) da entidade tratada, normalmente informações utilizadas para autenticação. Como o JWT utiliza o formato JSON, [cada _claim_ é uma chave do objeto JSON](https://github.com/jwtk/jjwt#overview).
 
-Essas claims podem ser de [2 tipos](https://auth0.com/docs/tokens/json-web-tokens/json-web-token-claims):
+Essas claims podem ser de [3 tipos](https://auth0.com/docs/tokens/json-web-tokens/json-web-token-claims):
 
 1. Registered claims: atributos não obrigatórios (mas recomendados) que são usados na validação do token pelos protocolos de segurança das APIs.
     - Subject claim (**sub** key): um valor único que representa o conteúdo do JWT

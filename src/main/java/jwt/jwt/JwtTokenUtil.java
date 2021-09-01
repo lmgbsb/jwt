@@ -2,10 +2,13 @@ package jwt.jwt;
 
 import static java.lang.String.format;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -22,15 +25,33 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenUtil {
+	
 
     private final String jwtSecret = "segredo";
     private final String jwtIssuer = "Blog";
+    private final String ROLES_KEY = "roles";
+    
 
     public String generateAccessToken(User user) {
         return Jwts.builder()
                 .setSubject(format("%s,%s", user.getUserId(), user.getUserName()))
                 .setIssuer(jwtIssuer)
                 .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
+                .signWith(Keys.secretKeyFor(SignatureAlgorithm.HS512))
+                .compact();
+    }
+    
+    public String createToken(String username, Collection<? extends GrantedAuthority> roles) {
+        Claims claims = Jwts.claims().setSubject(username);
+        claims.put(ROLES_KEY, roles.stream()
+        								.map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                                        .filter(Objects::nonNull)
+                                        .collect(Collectors.toList()));
+        Date now = new Date();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
                 .signWith(Keys.secretKeyFor(SignatureAlgorithm.HS512))
                 .compact();

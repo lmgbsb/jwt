@@ -6,7 +6,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +45,20 @@ public class UC {
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, jwtTokenUtil.generateAccessToken(userPrincipal.getUser()))
+                    .body(userMapper.toDto(userPrincipal.getUser()));
+        } catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+	}
+	@PostMapping("/signin3")
+	public ResponseEntity<UserDTO> signin3(@RequestBody @Valid UserDTO userDTO) {
+		try {
+			UserPrincipal userPrincipal =  (UserPrincipal) userService.signin(userDTO).getPrincipal();
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.AUTHORIZATION, 
+                    		jwtTokenUtil.createToken(userPrincipal.getUsername(), 
+                    				userPrincipal.getAuthorities()))
                     .body(userMapper.toDto(userPrincipal.getUser()));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
