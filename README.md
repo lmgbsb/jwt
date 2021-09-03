@@ -124,14 +124,14 @@ Na arquitetura de microserviços, a autenticação se difere das implementaçõe
 ![](./src/main/resources/static/img/evolution_software_architectures.jpg)
 
 Para superar o problema de ter que enviar o usuário e senha a cada requisição, a aplicaçao pode retornar ao usuário
-uma string criptografada, um token, após a autenticação, que [será adicionado ao cabeçalho HTTP nas requisições
+uma string criptografada - um token - após a autenticação, que [será adicionado ao cabeçalho HTTP nas requisições
 subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security-and-java)
 
 ![](./src/main/resources/static/img/fluxo_json.webp).
 
 Por convenção, o token JWT é enviado no header **Authorization** do cabeçalho HTTP.
 
-![](./src/main/resources/static/img/token_jwt_cabecalho_http_3.png)
+![](./src/main/resources/static/img/token_jwt_cabecalho_http_4.png)
 
 Um JSON Web Token (JWT) nada mais é do que uma forma compacta de representar informações relacionadas a identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
@@ -174,6 +174,10 @@ O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-se
 Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/topicals/spring-security-architecture) que delega o processamento das requisições aos seus filtros internos.
 
 ![](./src/main/resources/static/img/security-filters.png)
+
+No processo de autenticação utilizando um token JWT, todas as requisições HTTP são [interceptadas](https://www.bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/) por um filtro (do tipo OncePerRequestFilter) que cria uma implementação de Authentication e a adiciona ao SecurityContext.
+
+![](./src/main/resources/static/img/jwt_authentication_filter.png)
 
 #### OAuth 2
 
