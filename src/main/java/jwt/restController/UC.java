@@ -51,7 +51,7 @@ public class UC {
         }
 	}
 	@PostMapping("/signin3")
-	public ResponseEntity<UserDTO> signin3(@RequestBody @Valid UserDTO userDTO) {
+	public ResponseEntity<UserPrincipal> signin3(@RequestBody @Valid UserDTO userDTO) {
 		try {
 			UserPrincipal userPrincipal =  (UserPrincipal) userService.signin(userDTO).getPrincipal();
 
@@ -59,7 +59,7 @@ public class UC {
                     .header(HttpHeaders.AUTHORIZATION, 
                     		jwtTokenUtil.createToken(userPrincipal.getUser(), 
                     				userPrincipal.getAuthorities()))
-                    .body(userMapper.toDto(userPrincipal.getUser()));
+                    .body(userPrincipal);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
