@@ -28,17 +28,20 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 ![](./src/main/resources/static/img/spring-security-basic-authentication.png)
 
 
-</br>Tendo em vista essa cadeia de dependências, a cofiguração do processo de autenticação por meio do Spring Security deverá obedecer a seguinte sequência:
+</br>Tendo em vista essa cadeia de dependências, a cofiguração do processo de autenticação e autorização por meio do Spring Security deverá obedecer a seguinte sequência:
 
 1. Definir uma classe que implemente a interface UserDetails
 2. Definir uma classe que implemente a interface UserDetailsService
 3. Definir a lógica de criptografia de senha ou utilizar uma implementação da interface PasswordEncoder fornecida pelo Spring Security
 4. Definir a lógica de autenticação a ser implementada ou utilizar uma implementação da interface AuthenticationProvider disponibilizada pelo Spring Security
-5. Implementar a interface AuthenticationManager ou utilizar uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
+5. Configurar a autenticação implementando a interface AuthenticationManager ou sobrescrevendo o método [configure(AuthenticationManagerBuilder auth)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder-) que utiliza uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
+6. Configurar a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-)
 
 Após a configuração do Spring Security, é possível adicionar o AuthenticationManager como um bean ao contexto da aplicação por meio do método [authenticationManagerBean()](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#authenticationManagerBean--) da classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html)
 
 ![](./src/main/resources/static/img/WebSecurityConfigurerAdapter.png)
+
+A classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) provê opções para personalizar as configurações de segurança de acordo com os requisitos da aplicão. A anotação @EnableWebSecurity nessa classe indica ao framework Spring Security que essa classe é uma classe de configuração.
 
 <br/>O processo de [autenticação](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-authentication) tem dois objetivos no Spring Security:
 
@@ -175,7 +178,7 @@ Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/top
 
 ![](./src/main/resources/static/img/security-filters.png)
 
-No processo de autenticação utilizando um token JWT, todas as requisições HTTP são [interceptadas](https://www.bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/) por um filtro (do tipo OncePerRequestFilter) que cria uma implementação de Authentication e a adiciona ao SecurityContext.
+No processo de autenticação bseado em token, todas as requisições HTTP são [interceptadas](https://www.bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/) por um filtro (do tipo OncePerRequestFilter) que cria, a partir do JWT, uma implementação de Authentication e a adiciona ao SecurityContext.
 
 ![](./src/main/resources/static/img/jwt_authentication_filter.png)
 

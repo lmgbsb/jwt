@@ -27,17 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private BlogUserDetailsService userDetailsService;
 	
 	
-	@Override
-	public void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/api/public/**").permitAll()
-        .antMatchers("/api/posts/all").permitAll()
-        .antMatchers("/", "/landing", "/css/*", "/js/*").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .httpBasic();
-	}
 	@Bean
 	PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder(11);
@@ -65,5 +54,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }	
+	@Override
+	public void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/api/public/**").permitAll()
+        .antMatchers("/api/posts/all").permitAll()
+        .antMatchers("/", "/landing", "/css/*", "/js/*").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .httpBasic();
+	}
 }
