@@ -10,11 +10,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import jwt.jwt.JwtTokenFilter;
 import jwt.service.BlogUserDetailsService;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)//In order for @PreAuthorize to work
@@ -62,8 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/public/**").permitAll()
         .antMatchers("/api/posts/all").permitAll()
         .antMatchers("/", "/landing", "/css/*", "/js/*").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .httpBasic();
+        .anyRequest().authenticated();
+		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.addFilterBefore(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
 	}
 }
