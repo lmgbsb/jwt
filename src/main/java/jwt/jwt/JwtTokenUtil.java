@@ -41,24 +41,21 @@ public class JwtTokenUtil {
                 .signWith(Keys.secretKeyFor(SignatureAlgorithm.HS512))
                 .compact();
     }
-    
     public String createToken(User user, Collection<? extends GrantedAuthority> roles) {
         Claims claims = Jwts.claims()
         		.setSubject(format("%s,%s", user.getUserId(), user.getUserName()))
-                .setIssuer(jwtIssuer);
+                .setIssuer(jwtIssuer)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)); // 1 week
         claims.put(ROLES_KEY, roles.stream()
         								.map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                                         .filter(Objects::nonNull)
                                         .collect(Collectors.toList()));
-        Date now = new Date();
-        return Jwts.builder()
+        return Jwts.builder() 
                 .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
                 .signWith(Keys.secretKeyFor(SignatureAlgorithm.HS512))
                 .compact();
     }
-
     public String getUserId(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -67,7 +64,6 @@ public class JwtTokenUtil {
 
         return claims.getSubject().split(",")[0];
     }
-
     public String getUsername(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -76,7 +72,6 @@ public class JwtTokenUtil {
 
         return claims.getSubject().split(",")[1];
     }
-
     public Date getExpirationDate(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -85,7 +80,6 @@ public class JwtTokenUtil {
 
         return claims.getExpiration();
     }
-
     public boolean validate(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
@@ -103,5 +97,4 @@ public class JwtTokenUtil {
         }
         return false;
     }
-
 }
