@@ -169,6 +169,12 @@ A [assinatura](https://livebook.manning.com/book/spring-security-in-action/chapt
 
 Uma biblioteca muito utilizada para a geração do token JWT é a [JJWT](https://github.com/jwtk/jjwt)
 
+Os [passos](https://github.com/jwtk/jjwt#creating-a-jws) para criar um JWT assinado, também chamado de JWS, são:
+1. Crie uma instância de JwtBuilder por meio do método estático **_Jwts.builder()_**;
+2. Adicione _claims_ ao JWT utilizando os métodos do JwtBuilder: .setSubject(), .setIssuer(), .setIssuedAt(), .setExpiration(), .setClaims();
+3. Especifique a chave com a qual o JWT será assinado: .signWith();
+4. Por fim, execute o método compact() para compactar e assinar, produzindo o JWS
+
 #### Filtros
 O Spring Securit é baseado em [filtros](https://www.toptal.com/spring/spring-security-tutorial). Quando um cliente manda uma requisição para a aplicação, o container decide qual filtro e qual servlet atenderão a requisição com base no caminho da URI:
 
