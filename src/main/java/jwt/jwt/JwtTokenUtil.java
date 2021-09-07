@@ -1,7 +1,5 @@
 package jwt.jwt;
 
-import static java.lang.String.format;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Date;
