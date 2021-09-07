@@ -134,11 +134,11 @@ subsequentes](https://www.toptal.com/java/rest-security-with-jwt-spring-security
 
 Por convenção, o token JWT é enviado no header **Authorization** do cabeçalho HTTP.
 
-![](./src/main/resources/static/img/token_jwt_cabecalho_http_4.png)
+![](./src/main/resources/static/img/token_jwt_cabecalho_http_5.png)
 
 Um JSON Web Token (JWT) nada mais é do que uma forma compacta de representar informações relacionadas a identidade e características (_claims_) do portador do token, acompanhados de uma assinatura para verificar a sua autenticidade. Esse token é criado durante o processo de autenticação e verificado pelo servidor de autorização a cada requisição, antes de qualquer processamento.
 
-![](./src/main/resources/static/img/jwt_decoded_3.png)
+![](./src/main/resources/static/img/jwt_decoded_5.png)
 
 O JWT é um padrão [RFC-7519](https://datatracker.ietf.org/doc/html/rfc7519) de mercado que define como transmitir e armazenar objetos JSON de forma compacta e segura entre diferentes aplicações
 

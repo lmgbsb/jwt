@@ -45,7 +45,6 @@ public class UserController {
 	public ResponseEntity<UserPrincipal> signin3(@RequestBody @Valid UserDTO userDTO) {
 		try {
 			UserPrincipal userPrincipal =  (UserPrincipal) userService.signin(userDTO).getPrincipal();
-
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, 
                     		jwtTokenUtil.createToken(userPrincipal.getUser(), 
