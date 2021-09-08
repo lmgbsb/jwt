@@ -30,7 +30,7 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 
 </br>Tendo em vista essa cadeia de dependências, a cofiguração do processo de autenticação e autorização por meio do Spring Security deverá obedecer a seguinte sequência:
 
-1. Adicionar o jar do Spring Security ou a dependencia no seu projeto
+1. Adicionar o jar do Spring Security ou a dependência no seu projeto
 2. Definir uma classe que implemente a interface UserDetails
 3. Definir uma classe que implemente a interface UserDetailsService
 4. Definir a lógica de criptografia de senha ou utilizar uma implementação da interface PasswordEncoder fornecida pelo Spring Security
@@ -38,7 +38,7 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 6. Criar uma classe de configuração que estenda [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) e anotá-la com [@EnableWebSecurity](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html)
 7. Configurar a autenticação implementando a interface AuthenticationManager ou sobrescrevendo o método [configure(AuthenticationManagerBuilder auth)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder-) que utiliza uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
 8. Criar uma classe que estenda o filtro [OncePerRequestFilter](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/filter/OncePerRequestFilter.html) para interceptar as requisições HTTP e validar o token JWT que tenha sido enviado no cabeçalho do pacote HTTP
-9. [Configurar](https://medium.com/@er.rameshkatiyar/configure-spring-security-in-your-application-ae303fa78959) a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-) e anotando a classe WebSecurityConfigurerAdapter com [@EnableGlobalMethodSecurity](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#method-security-expressions)
+9. Configurar a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-) e anotando a classe WebSecurityConfigurerAdapter com [@EnableGlobalMethodSecurity](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#method-security-expressions)
     - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para [desabilitar](https://www.baeldung.com/spring-security-session) a criação de sessão pelo Spring Security em conformidade com a arquitetura REST, que é _stateless_
     - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para invocar o filtro do JWT antes do filtro de autenticação de usuários
 
@@ -69,9 +69,11 @@ A [primeira etapa](https://2darray.com/featured/spring-security-architecture-aut
 2. Criar um [token](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.html) de autenticação usando  _**UsernamePasswordAuthenticationToken**_, que é uma implementação da interface [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html)
 3. Delegar a continuação do processo de autenticação à interface _**AuthenticationManager**_, reponsável por analisar o token de autenticação e decidir se é uma credencial válida.<br/>
 
-
 ![](./src/main/resources/static/img/spring_security_authentication_filter.png)<br/>
 
+Como o Spring Security não provê de forma nativa a autenticação baseada em Token, essas etapas deverão ser programadas.
+
+![](./src/main/resources/static/img/token_based_authentication_filter.png)
 
 #### AuthenticationManager
 A [principal interface](https://spring.io/guides/topicals/spring-security-architecture) da estratégia de autenticação do Spring Security é [AuthenticationManager](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/authentication/AuthenticationManager.html), cujo único método (authenticate( )) pode fazer uma das seguintes coisas:
