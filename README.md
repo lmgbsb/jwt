@@ -122,7 +122,7 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
-![](./src/main/resources/static/img/SecurityContextHolder.png)
+![](./src/main/resources/static/img/SecurityContextHolder_2.png)
 
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
@@ -196,9 +196,6 @@ Note que o Spring Security é ele mesmo um [filtro](https://spring.io/guides/top
 No processo de autenticação bseado em token, todas as requisições HTTP são [interceptadas](https://www.bezkoder.com/spring-boot-jwt-mysql-spring-security-architecture/) por um filtro (do tipo OncePerRequestFilter) que cria, a partir do JWT, uma implementação de Authentication e a adiciona ao SecurityContext.
 
 ![](./src/main/resources/static/img/jwt_authentication_filter.png)
-
-#### OAuth 2
-
 
 #### Autorização
 O framework SpringSecurity provê suporte aos seguintes tipos de autorização
