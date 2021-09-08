@@ -28,6 +28,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
             throws IOException, ServletException {
+    	
         //Check for Authorization:Bearer JWT
         String headerValue = ((HttpServletRequest)req).getHeader("Authorization");
         getBearerToken(headerValue).ifPresent(token-> {
@@ -38,7 +39,6 @@ public class JwtTokenFilter extends GenericFilterBean {
                         new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
             });
         });
-
         try {
 	        //move on to the next filter in the chains
 	        filterChain.doFilter(req, res);
