@@ -21,20 +21,10 @@ public class JwtTokenFilter extends GenericFilterBean {
     private static final String BEARER = "Bearer";
     private BlogUserDetailsService userDetailsService;
 
+    
     public JwtTokenFilter(BlogUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
-    /**
-     * Determine if there is a JWT as part of the HTTP Request Header.
-     * If it is valid then set the current context With the Authentication(user and roles) found in the token
-     *
-     * @param req Servlet Request
-     * @param res Servlet Response
-     * @param filterChain Filter Chain
-     * @throws IOException
-     * @throws ServletException
-     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
             throws IOException, ServletException {
@@ -56,13 +46,6 @@ public class JwtTokenFilter extends GenericFilterBean {
         	System.out.println(e);
         }
     }
-
-    /**
-     * if present, extract the jwt token from the "Bearer <jwt>" header value.
-     *
-     * @param headerVal
-     * @return jwt if present, empty otherwise
-     */
     private Optional<String> getBearerToken(String headerVal) {
         if (headerVal != null && headerVal.startsWith(BEARER)) {
             return Optional.of(headerVal.replace(BEARER, "").trim());

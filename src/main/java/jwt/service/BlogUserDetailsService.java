@@ -19,12 +19,12 @@ public class BlogUserDetailsService implements UserDetailsService {
 
 	
 	private final UserRepository userRepository;
-	private final JwtTokenUtil jwtProvider;
+	private final JwtTokenUtil jwtTokenUtil;
 	
 	
-	public BlogUserDetailsService(UserRepository userRepository, JwtTokenUtil jwtProvider) {
+	public BlogUserDetailsService(UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
 		this.userRepository = userRepository;
-		this.jwtProvider = jwtProvider;
+		this.jwtTokenUtil = jwtTokenUtil;
 	}
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,10 +36,10 @@ public class BlogUserDetailsService implements UserDetailsService {
 		return new UserPrincipal(user);
 	}
 	public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
-        if (jwtProvider.isValidToken(jwtToken)) {
+        if (jwtTokenUtil.isValidToken(jwtToken)) {
             return Optional.of(
-                withUsername(jwtProvider.getUsername(jwtToken))
-                .authorities(jwtProvider.getRoles(jwtToken))
+                withUsername(jwtTokenUtil.getUsername(jwtToken))
+                .authorities(jwtTokenUtil.getRoles(jwtToken))
                 .password("") //token does not have password but field may not be empty
                 .accountExpired(false)
                 .accountLocked(false)
