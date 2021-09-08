@@ -59,12 +59,6 @@ public class JwtTokenUtil {
             return false;
         }
     }
-    /**
-     * Get the username from the token string
-     *
-     * @param token jwt
-     * @return username
-     */
     public String getUsername(String token) {
     	Jws<Claims> jws = Jwts.parserBuilder()
 				.setSigningKey(key) 
@@ -72,13 +66,6 @@ public class JwtTokenUtil {
 				.parseClaimsJws(token);    	
     	return jws.getBody().getSubject();
     }
-
-    /**
-     * Get the roles from the token string
-     *
-     * @param token jwt
-     * @return username
-     */
     public List<GrantedAuthority> getRoles(String token) {
     	Jws<Claims> jws = Jwts.parserBuilder()
 				.setSigningKey(key) 

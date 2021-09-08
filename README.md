@@ -1,5 +1,5 @@
 # JWT
-O objetivo desse repositório é criar o backend de um Blog com mecanismos de autenticação
+O objetivo desse repositório é criar o backend de um Blog utilizando a arquitetura [REST](https://martinfowler.com/articles/richardsonMaturityModel.html) com mecanismos de autenticação
 e autorização via [json web tokens](https://jwt.io/)
 
 Serão disponibilizados endpoints para 
@@ -30,16 +30,21 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 
 </br>Tendo em vista essa cadeia de dependências, a cofiguração do processo de autenticação e autorização por meio do Spring Security deverá obedecer a seguinte sequência:
 
-1. Definir uma classe que implemente a interface UserDetails
-2. Definir uma classe que implemente a interface UserDetailsService
-3. Definir a lógica de criptografia de senha ou utilizar uma implementação da interface PasswordEncoder fornecida pelo Spring Security
-4. Definir a lógica de autenticação a ser implementada ou utilizar uma implementação da interface AuthenticationProvider disponibilizada pelo Spring Security
-5. Configurar a autenticação implementando a interface AuthenticationManager ou sobrescrevendo o método [configure(AuthenticationManagerBuilder auth)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder-) que utiliza uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
-6. Configurar a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-) e anotando a classe WebSecurityConfigurerAdapter com [@EnableGlobalMethodSecurity](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#method-security-expressions)
+1. Adicionar o jar do Spring Security ou a dependencia no seu projeto
+2. Definir uma classe que implemente a interface UserDetails
+3. Definir uma classe que implemente a interface UserDetailsService
+4. Definir a lógica de criptografia de senha ou utilizar uma implementação da interface PasswordEncoder fornecida pelo Spring Security
+5. Definir a lógica de autenticação a ser implementada ou utilizar uma implementação da interface AuthenticationProvider disponibilizada pelo Spring Security
+6. Criar uma classe de configuração que estenda [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) e anotá-la com [@EnableWebSecurity](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.html)
+7. Configurar a autenticação implementando a interface AuthenticationManager ou sobrescrevendo o método [configure(AuthenticationManagerBuilder auth)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder-) que utiliza uma implementação dessa interface construída por meio da classe [AuthenticationManagerBuilder](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/authentication/builders/AuthenticationManagerBuilder.html).
+8. Criar uma classe que estenda o filtro [OncePerRequestFilter](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/filter/OncePerRequestFilter.html) para interceptar as requisições HTTP e validar o token JWT que tenha sido enviado no cabeçalho do pacote HTTP
+9. [Configurar](https://medium.com/@er.rameshkatiyar/configure-spring-security-in-your-application-ae303fa78959) a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-) e anotando a classe WebSecurityConfigurerAdapter com [@EnableGlobalMethodSecurity](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#method-security-expressions)
+    - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para [desabilitar](https://www.baeldung.com/spring-security-session) a criação de sessão pelo Spring Security em conformidade com a arquitetura REST, que é _stateless_
+    - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para invocar o filtro do JWT antes do filtro de autenticação de usuários
 
 Após a configuração do Spring Security, é possível adicionar o AuthenticationManager como um bean ao contexto da aplicação por meio do método [authenticationManagerBean()](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#authenticationManagerBean--) da classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html)
 
-![](./src/main/resources/static/img/WebSecurityConfigurerAdapter_2.png)
+![](./src/main/resources/static/img/WebSecurityConfigurerAdapter_3.png)
 
 A classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) provê opções para personalizar as configurações de segurança de acordo com os requisitos da aplicão. A anotação @EnableWebSecurity nessa classe indica ao framework Spring Security que essa classe é uma classe de configuração.
 
