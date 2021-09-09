@@ -17,7 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import jwt.jwt.JwtTokenFilter;
+import jwt.jwt.JwtTokenFilter2;
+import jwt.jwt.JwtTokenUtil;
 import jwt.service.BlogUserDetailsService;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)//In order for @PreAuthorize to work
@@ -67,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/landing", "/css/*", "/js/*").permitAll()
         .anyRequest().authenticated();
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.addFilterBefore(new JwtTokenFilter(userDetailsService), 
-											UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterBefore(new JwtTokenFilter2(new JwtTokenUtil(), userDetailsService), 
+				UsernamePasswordAuthenticationFilter.class);
 	}
 }
