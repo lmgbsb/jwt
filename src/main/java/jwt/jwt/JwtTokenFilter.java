@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 
-import io.jsonwebtoken.io.IOException;
 import jwt.service.BlogUserDetailsService;
 
 public class JwtTokenFilter extends GenericFilterBean {
@@ -27,7 +26,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     }
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
-            throws IOException, ServletException {
+            throws ServletException, java.io.IOException {
     	
         //Check for Authorization:Bearer JWT
         String headerValue = ((HttpServletRequest)req).getHeader("Authorization");
@@ -39,12 +38,7 @@ public class JwtTokenFilter extends GenericFilterBean {
                         new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
             });
         });
-        try {
-	        //move on to the next filter in the chains
-	        filterChain.doFilter(req, res);
-        }catch(Exception e) {
-        	System.out.println(e);
-        }
+        filterChain.doFilter(req, res);
     }
     private Optional<String> getBearerToken(String headerVal) {
         if (headerVal != null && headerVal.startsWith(BEARER)) {

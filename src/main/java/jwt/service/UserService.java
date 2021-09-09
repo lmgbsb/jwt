@@ -1,5 +1,7 @@
 package jwt.service;
 
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,5 +43,8 @@ public class UserService{
 																			userDTO.getUserName(), 
 																			userDTO.getPassword());
 		return authenticationManager.authenticate(authenticationToken);
+	}
+	public List<User> listUsers(){
+		return userRepository.findAll();
 	}
 }

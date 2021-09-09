@@ -41,6 +41,7 @@ O fluxo de [autenticação](https://livebook.manning.com/book/spring-security-in
 9. Configurar a autorização sobrescrevendo o método [configure(HttpSecurity http)](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#configure-org.springframework.security.config.annotation.web.builders.HttpSecurity-) e anotando a classe WebSecurityConfigurerAdapter com [@EnableGlobalMethodSecurity](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#method-security-expressions)
     - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para [desabilitar](https://www.baeldung.com/spring-security-session) a criação de sessão pelo Spring Security em conformidade com a arquitetura REST, que é _stateless_
     - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para invocar o filtro do JWT antes do filtro de autenticação de usuários
+    - Configurar o objeto [HttpSecurity](https://docs.spring.io/spring-security/site/docs/4.2.x/apidocs/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) para autorizar o acesso não autenticado ao endpoint de autenticação
 
 Após a configuração do Spring Security, é possível adicionar o AuthenticationManager como um bean ao contexto da aplicação por meio do método [authenticationManagerBean()](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html#authenticationManagerBean--) da classe [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/4.0.x/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html)
 
@@ -121,6 +122,11 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 
 #### SecurityContext
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
+
+
+![](./src/main/resources/static/img/security_context.png)
+
+Como o Spring Security não provê de forma nativa a autenticação baseada em Token, será necessário programar um filtro para obter o token enviado no cabeçalho do pacote HTTP da requisição, interpretá-lo e [injetar os dados](https://livebook.manning.com/book/spring-security-in-action/chapter-4/v-2/11) de autentticação e autorização no [SecurityContext](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/context/SecurityContext.html)
 
 ![](./src/main/resources/static/img/SecurityContextHolder_3.png)
 
