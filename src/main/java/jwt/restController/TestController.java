@@ -22,6 +22,7 @@ public class TestController {
 	}	
 	@GetMapping("/test/manager")
 	//@PreAuthorize("hasRole('ROLE_MANAGER')")
+	//@PreAuthorize("hasRole('MANAGER')")
 	public List<User> listUsers(){
 		return userService.listUsers();
 	}

@@ -14,7 +14,7 @@ import jwt.model.User;
 import jwt.repository.UserRepository;
 
 @Service
-public class UserService{
+public class UserService {
 	
 	
 	private final UserMapper userMapper = UserMapper.INSTANCE;
@@ -26,14 +26,14 @@ public class UserService{
 	public UserService(
 			UserRepository userRepository, 
 			PasswordEncoder passwordEncoder, 
-			AuthenticationManager authenticationManager){
+			AuthenticationManager authenticationManager) {
 		
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.authenticationManager = authenticationManager;
 	}
 	//create a new user in database
-	public User signup(UserDTO userDTO){
+	public User signup(UserDTO userDTO) {
 		User user = userMapper.toModel(userDTO);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
@@ -44,7 +44,7 @@ public class UserService{
 																			userDTO.getPassword());
 		return authenticationManager.authenticate(authenticationToken);
 	}
-	public List<User> listUsers(){
+	public List<User> listUsers() {
 		return userRepository.findAll();
 	}
 }

@@ -1,8 +1,5 @@
 package jwt.jwt;
 
-import static java.util.List.of;
-import static java.util.Optional.ofNullable;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -23,7 +20,7 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class JwtTokenFilter2 extends OncePerRequestFilter {
+public class JwtTokenFilter3 extends OncePerRequestFilter {
 	
 	
     private final JwtTokenUtil jwtTokenUtil;
@@ -50,7 +47,9 @@ public class JwtTokenFilter2 extends OncePerRequestFilter {
         // Get user identity and set it on the spring security context
         UserDetails userDetails = userDetailsService.loadUserByJwtToken(token).orElse(null);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null, ofNullable(userDetails).map(UserDetails::getAuthorities).orElse(of()));
+                													userDetails, 
+                													null, 
+                													jwtTokenUtil.getRoles(token));
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

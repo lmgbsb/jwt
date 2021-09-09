@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import jwt.jwt.JwtTokenUtil;
 import jwt.model.User;
 import jwt.repository.UserRepository;
-import jwt.security.UserPrincipal;
+import jwt.security.UserDetailsImpl;
 
 @Service
-public class BlogUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	
 	private final UserRepository userRepository;
 	private final JwtTokenUtil jwtTokenUtil;
 	
 	
-	public BlogUserDetailsService(UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
+	public UserDetailsServiceImpl(UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
 		this.userRepository = userRepository;
 		this.jwtTokenUtil = jwtTokenUtil;
 	}
@@ -33,7 +33,7 @@ public class BlogUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Cannot find username: " + username);
 		}
 		//Decorator design pattern
-		return new UserPrincipal(user);
+		return new UserDetailsImpl(user);
 	}
 	public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
         if (jwtTokenUtil.isValidToken(jwtToken)) {
