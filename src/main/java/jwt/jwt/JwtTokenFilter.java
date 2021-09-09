@@ -12,16 +12,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 
-import jwt.service.BlogUserDetailsService;
+import jwt.service.UserDetailsServiceImpl;
 
 public class JwtTokenFilter extends GenericFilterBean {
 
 	
     private static final String BEARER = "Bearer";
-    private BlogUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     
-    public JwtTokenFilter(BlogUserDetailsService userDetailsService) {
+    public JwtTokenFilter(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
     @Override

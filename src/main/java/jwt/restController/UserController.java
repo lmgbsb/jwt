@@ -15,7 +15,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import jwt.dto.UserDTO;
 import jwt.jwt.JwtTokenUtil;
 import jwt.model.User;
-import jwt.security.UserPrincipal;
+import jwt.security.UserDetailsImpl;
 import jwt.service.UserService;
 
 @RestController
@@ -38,14 +38,14 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	@PostMapping("/signin")
-	public ResponseEntity<UserPrincipal> signin(@RequestBody @Valid UserDTO userDTO) {
-		UserPrincipal userPrincipal =  (UserPrincipal) userService.signin(userDTO).getPrincipal();
-		return new ResponseEntity<UserPrincipal>(userPrincipal, HttpStatus.OK);
+	public ResponseEntity<UserDetailsImpl> signin(@RequestBody @Valid UserDTO userDTO) {
+		UserDetailsImpl userPrincipal =  (UserDetailsImpl) userService.signin(userDTO).getPrincipal();
+		return new ResponseEntity<UserDetailsImpl>(userPrincipal, HttpStatus.OK);
 	}
 	@PostMapping("/signin3")
-	public ResponseEntity<UserPrincipal> signin3(@RequestBody @Valid UserDTO userDTO) {
+	public ResponseEntity<UserDetailsImpl> signin3(@RequestBody @Valid UserDTO userDTO) {
 		try {
-			UserPrincipal userPrincipal =  (UserPrincipal) userService.signin(userDTO).getPrincipal();
+			UserDetailsImpl userPrincipal =  (UserDetailsImpl) userService.signin(userDTO).getPrincipal();
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, 
                     		jwtTokenUtil.createToken(userPrincipal.getUser(), 

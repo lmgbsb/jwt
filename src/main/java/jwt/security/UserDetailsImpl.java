@@ -14,13 +14,13 @@ import jwt.model.User;
 import lombok.Data;
 
 @Data
-public class UserPrincipal implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
 	
 	private User user;
 	
 	
-	public UserPrincipal(User user) {
+	public UserDetailsImpl(User user) {
 		this.user = user;
 	}
 	@Override
