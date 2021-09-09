@@ -124,7 +124,7 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 É no [SecurityContextHolder](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-authentication-securitycontextholder) que o Spring guarda os detalhes de quem está autenticado:<br/>
 
 
-![](./src/main/resources/static/img/security_context.png)
+![](./src/main/resources/static/img/spring_security_authentication_process.png)
 
 Como o Spring Security não provê de forma nativa a autenticação baseada em Token, será necessário programar um filtro para obter o token enviado no cabeçalho do pacote HTTP da requisição, interpretá-lo e [injetar os dados](https://livebook.manning.com/book/spring-security-in-action/chapter-4/v-2/11) de autentticação e autorização no [SecurityContext](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/context/SecurityContext.html)
 
