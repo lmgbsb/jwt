@@ -80,7 +80,7 @@ Como o Spring Security não provê de forma nativa a autenticação baseada em T
 A [principal interface](https://spring.io/guides/topicals/spring-security-architecture) da estratégia de autenticação do Spring Security é [AuthenticationManager](https://docs.spring.io/spring-security/site/docs/4.2.15.RELEASE/apidocs/org/springframework/security/authentication/AuthenticationManager.html), cujo único método (authenticate( )) pode fazer uma das seguintes coisas:
 
 1. Retornar uma [Authentication](https://docs.spring.io/spring-security/site/docs/5.5.1/api/org/springframework/security/core/Authentication.html) se puder ser verificado que as credenciais apresentadas são válidas.
-2. Jogar uma exceção **AuthenticationException** se as credenciais apresentadas não forem válidas.
+2. Lançar uma exceção **AuthenticationException** se as credenciais apresentadas não forem válidas.
 3. Retornar null, se ela não conseguir decidir.
 
 ![](./src/main/resources/static/img/daoauthenticationprovider.png)<br/>
@@ -128,7 +128,7 @@ A interface [PasswordEncoder](https://docs.spring.io/spring-security/site/docs/5
 
 Como o Spring Security não provê de forma nativa a autenticação baseada em Token, será necessário programar um filtro para obter o token enviado no cabeçalho do pacote HTTP da requisição, interpretá-lo e [injetar os dados](https://livebook.manning.com/book/spring-security-in-action/chapter-4/v-2/11) de autentticação e autorização no [SecurityContext](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/context/SecurityContext.html)
 
-![](./src/main/resources/static/img/SecurityContextHolder_3.png)
+![](./src/main/resources/static/img/SecurityContextHolder_4.png)
 
 <br/>Os relacionamentos entre as [interfaces e classes](https://waynestalk.com/en/spring-security-architecture-explained-en/) que participam do processo de autenticação são os seguintes:<br/>
 
