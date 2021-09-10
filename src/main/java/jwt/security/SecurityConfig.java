@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import jwt.jwt.JwtTokenFilter3;
+import jwt.jwt.JwtTokenFilter;
 import jwt.jwt.JwtTokenUtil;
 import jwt.service.UserDetailsServiceImpl;
 
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/landing", "/css/*", "/js/*").permitAll()
         .anyRequest().authenticated();
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.addFilterBefore(new JwtTokenFilter3(new JwtTokenUtil(), userDetailsService), 
+		httpSecurity.addFilterBefore(new JwtTokenFilter(new JwtTokenUtil(), userDetailsService), 
 				UsernamePasswordAuthenticationFilter.class);
 	}
 }

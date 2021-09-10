@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpServerErrorException;
 
 import jwt.dto.UserDTO;
 import jwt.jwt.JwtTokenUtil;
@@ -38,11 +37,6 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	@PostMapping("/signin")
-	public ResponseEntity<UserDetailsImpl> signin(@RequestBody @Valid UserDTO userDTO) {
-		UserDetailsImpl userPrincipal =  (UserDetailsImpl) userService.signin(userDTO).getPrincipal();
-		return new ResponseEntity<UserDetailsImpl>(userPrincipal, HttpStatus.OK);
-	}
-	@PostMapping("/signin3")
 	public ResponseEntity<UserDetailsImpl> signin3(@RequestBody @Valid UserDTO userDTO) {
 		try {
 			UserDetailsImpl userPrincipal =  (UserDetailsImpl) userService.signin(userDTO).getPrincipal();
